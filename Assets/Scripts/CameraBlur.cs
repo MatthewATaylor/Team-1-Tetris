@@ -16,6 +16,6 @@ public class CameraBlur : MonoBehaviour
 
     void Update()
     {
-        depthOfField.focalLength.value = score.value * 300.0f / Score.maxValue;
+        depthOfField.focalLength.value = 300.0f * score.GetProgress();
     }
 }

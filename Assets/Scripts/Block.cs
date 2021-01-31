@@ -52,7 +52,7 @@ public class Block : MonoBehaviour
         {
             GameObject tileObj = tile.gameObject;
             tileObj.GetComponent<Renderer>().material.SetFloat("time_s", Time.time);
-            tileObj.GetComponent<Renderer>().material.SetFloat("drunkness", score.value / Score.maxValue);
+            tileObj.GetComponent<Renderer>().material.SetFloat("drunkness", score.GetProgress());
         }
 
         if (!canMove)
@@ -102,8 +102,8 @@ public class Block : MonoBehaviour
             if (IsPlacementConflict())
             {
                 Displace(0, -displacement.y);
-                GameObject.Find(GlobalNames.spawner).GetComponent<Spawn>().SpawnBlock();
-                board.PositionBlock(this);
+                // TO ADD: spawn new block
+                // TO ADD: add block to grid
                 canMove = false;
                 break;
             }
@@ -191,8 +191,8 @@ public class Block : MonoBehaviour
         // Block not outside of board's size and not overlapping another block
         foreach (Transform tile in Tiles)
         {
-            if (Mathf.Abs(tile.position.x) > board.Size.x / 2 ||
-                Mathf.Abs(tile.position.y) > board.Size.y / 2 ||
+            if (Mathf.Abs(tile.position.x) > Playboard.w / 2.0f ||
+                Mathf.Abs(tile.position.y) > Playboard.h / 2.0f ||
                 board.TilePlacedAtTransform(tile))
             {
                 return true;
