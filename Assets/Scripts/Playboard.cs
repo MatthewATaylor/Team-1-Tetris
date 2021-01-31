@@ -34,10 +34,19 @@ public class Playboard : MonoBehaviour
         }
     }
 
+    public void AddBlockToGrid(Block block)
+    {
+        foreach (Transform tile in block.Tiles)
+        {
+            Vector2Int indices = GetIndicesOfTransform(tile);
+            grid[indices.x, indices.y] = tile;
+        }
+    }
+
     private Vector2Int GetIndicesOfTransform(Transform transform)
     {
         int xIndex = Mathf.RoundToInt(transform.position.x - 0.5f) + w / 2;
-        int yIndex = Mathf.RoundToInt(transform.position.y - 0.5f) + w / 2;
+        int yIndex = Mathf.RoundToInt(transform.position.y - 0.5f) + h / 2;
         return new Vector2Int(xIndex, yIndex);
     }
 }

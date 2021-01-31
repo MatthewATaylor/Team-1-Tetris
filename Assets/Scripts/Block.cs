@@ -103,7 +103,7 @@ public class Block : MonoBehaviour
             {
                 Displace(0, -displacement.y);
                 // TO ADD: spawn new block
-                // TO ADD: add block to grid
+                board.AddBlockToGrid(this);
                 canMove = false;
                 break;
             }
