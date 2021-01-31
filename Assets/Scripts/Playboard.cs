@@ -10,24 +10,34 @@ public class Playboard : MonoBehaviour
 
 	void Start()
  	{
-        	score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
-    	}
+        score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
+    }
 
 	void Update()
-    	{
+    {
 		//when block dropped, update grid
-        	//when block dropped, run UpdateScoreDrop()
-        	//if line cleared, run UpdateScoreRowClear(int num_lines)
+        //when block dropped, run UpdateScoreDrop()
+        //if line cleared, run UpdateScoreRowClear(int num_lines)
  		//run UpdateLevel(int num_lines)
 	}
 
 	public bool TilePlacedAtTransform(Transform transform)
   	{
-		foreach (Transform child in transform){
-			if (Playboard.grid[(int)child.position.x, (int)child.position.y] != null){
-				return false;
-			}
-		}
-        	return true;
-	}
+        Vector2Int indices = GetIndicesOfTransform(transform);
+        try
+        {
+            return grid[indices.x, indices.y] != null;
+        }
+        catch (System.IndexOutOfRangeException)
+        {
+            return false;
+        }
+    }
+
+    private Vector2Int GetIndicesOfTransform(Transform transform)
+    {
+        int xIndex = Mathf.RoundToInt(transform.position.x - 0.5f) + w / 2;
+        int yIndex = Mathf.RoundToInt(transform.position.y - 0.5f) + w / 2;
+        return new Vector2Int(xIndex, yIndex);
+    }
 }
