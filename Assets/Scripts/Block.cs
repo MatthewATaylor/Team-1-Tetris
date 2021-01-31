@@ -35,6 +35,7 @@ public class Block : MonoBehaviour
     private float prevTime;
     private Playboard board;
     private Score score;
+    private Spawn spawn;
 
     void Start()
     {
@@ -43,6 +44,7 @@ public class Block : MonoBehaviour
         prevTime = Time.time;
         board = GameObject.Find(GlobalNames.board).GetComponent<Playboard>();
         score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
+        spawn = GameObject.Find(GlobalNames.spawner).GetComponent<Spawn>();
     }
 
     void Update()
@@ -102,7 +104,7 @@ public class Block : MonoBehaviour
             if (IsPlacementConflict())
             {
                 Displace(0, -displacement.y);
-                // TO ADD: spawn new block
+                spawn.SpawnBlock();
                 board.AddBlockToGrid(this);
                 canMove = false;
                 break;
