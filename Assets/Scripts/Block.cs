@@ -49,12 +49,14 @@ public class Block : MonoBehaviour
 
     void Update()
     {
+        float gameProgress = score.GetProgress();
+
         // Update time for tile shaders (for adding wobble when drunk)
         foreach (Transform tile in Tiles)
         {
             GameObject tileObj = tile.gameObject;
             tileObj.GetComponent<Renderer>().material.SetFloat("time_s", Time.time);
-            tileObj.GetComponent<Renderer>().material.SetFloat("drunkness", score.GetProgress());
+            tileObj.GetComponent<Renderer>().material.SetFloat("drunkness", gameProgress);
         }
 
         if (!canMove)
@@ -65,10 +67,10 @@ public class Block : MonoBehaviour
         Vector2 displacement = new Vector2();
 
         // Y displacement
-        float fallDelay = 1;
+        float fallDelay = (1 - gameProgress) * 0.98f + 0.02f;  // Ranges from 1 to 0.02
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            fallDelay = 0.1f;
+            fallDelay *= 0.1f;
         }
         if (Time.time - prevTime > fallDelay)
         {
