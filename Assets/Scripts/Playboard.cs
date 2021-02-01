@@ -98,6 +98,8 @@ public class Playboard : MonoBehaviour
         if (numRowsCleared > 0)
         {
             totalRowsCleared += numRowsCleared;
+            score.UpdateScoreRowClear(numRowsCleared);
+            score.UpdateLevel(totalRowsCleared);
         }
     }
 

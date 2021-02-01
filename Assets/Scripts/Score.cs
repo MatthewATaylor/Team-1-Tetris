@@ -52,7 +52,8 @@ public class Score : MonoBehaviour
 
     public void UpdateLevel(int num_lines)
     {
-        if (num_lines % (4 * level) == 0)
+        const int additionalLinesPerLevel = 2;
+        if (num_lines >= (additionalLinesPerLevel / 2.0f) * (level * level + level))
         {
             level += 1;
         }
