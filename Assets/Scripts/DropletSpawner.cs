@@ -2,7 +2,7 @@
 
 public class DropletSpawner : MonoBehaviour
 {
-    private const int particlesPerDrop = 60;
+    private const int particlesPerDrop = 50;
     private const int secondsPerDrop = 3;
     private const float particlesPerSecond = (float)particlesPerDrop / secondsPerDrop;
 
@@ -11,6 +11,7 @@ public class DropletSpawner : MonoBehaviour
     private float lastDropTime = 0;
     private bool isDropping = false;
     private int numDroppedParticles = 0;
+    private int numParticleLayers = 0;
 
     void Start()
     {
@@ -35,12 +36,16 @@ public class DropletSpawner : MonoBehaviour
                     dropletPosition.x += Random.Range(-0.5f, 0.5f);
                     dropletPosition.y += Random.Range(-0.5f, 0.5f);
                     GameObject droplet = Instantiate(dropletObject, dropletPosition, Quaternion.identity);
-                    droplet.transform.parent = transform;
-                    droplet.GetComponent<Renderer>().sortingOrder = 0;
-                    droplet.layer = GlobalNames.liquidLayer;
+                    droplet.transform.parent = transform;  // Set droplet spawner as parent
+                    droplet.GetComponent<Renderer>().sortingOrder = 0;  // Render behind board
+                    droplet.layer = GlobalNames.liquidLayer;  // Set layer for liquid camera
                 }
-                StaticBatchingUtility.Combine(transform.gameObject);
                 numDroppedParticles += numParticlesToDrop;
+
+                // Calculate where foam should begin
+                float adjustedNumParticleLayers = numParticleLayers + (float)numDroppedParticles / particlesPerDrop;
+                float whiteHeight = 2 * (1 - adjustedNumParticleLayers / Score.maxLevel) - 0.75f;
+                Shader.SetGlobalFloat("whiteHeight", whiteHeight);
 
                 lastDropTime = Time.time;
 
@@ -48,6 +53,7 @@ public class DropletSpawner : MonoBehaviour
                 {
                     isDropping = false;
                     numDroppedParticles = 0;
+                    ++numParticleLayers;
                 }
             }
         }

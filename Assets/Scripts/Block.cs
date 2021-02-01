@@ -52,12 +52,8 @@ public class Block : MonoBehaviour
         float gameProgress = score.GetProgress();
 
         // Update time for tile shaders (for adding wobble when drunk)
-        foreach (Transform tile in Tiles)
-        {
-            GameObject tileObj = tile.gameObject;
-            tileObj.GetComponent<Renderer>().material.SetFloat("time_s", Time.time);
-            tileObj.GetComponent<Renderer>().material.SetFloat("drunkness", gameProgress);
-        }
+        Shader.SetGlobalFloat("time_s", Time.time);
+        Shader.SetGlobalFloat("drunkness", gameProgress);
 
         if (!canMove)
         {

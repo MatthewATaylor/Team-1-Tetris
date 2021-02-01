@@ -54,7 +54,10 @@
 			{
 				v2f OUT;
 				OUT.vertex = UnityObjectToClipPos(IN.vertex);
+
+				// Apply wobble effect
 				OUT.vertex.x += 0.05 * drunkness * sin(8 * time_s + 5 * OUT.vertex.y);
+				
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
 				#ifdef PIXELSNAP_ON
