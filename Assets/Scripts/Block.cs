@@ -73,14 +73,14 @@ public class Block : MonoBehaviour
         {
             fallDelay *= 0.1f;
         }
-        if (Time.time - prevTime > (Input.GetKey(KeyCode.DownArrow) ? fallDelay/10 : fallDelay)
+        if (Time.time - prevTime > (Input.GetKey(KeyCode.DownArrow) ? fallDelay/10 : fallDelay))
         {
             displacement.y -= 1;
             if(!canMove)
             {
                 displacement.y += 1;
                 this.enabled = false;
-                FindObjectType<Spawn>().SpawnBlock();
+                FindObjectOfType<Spawn>().SpawnBlock();
             }
             prevTime = Time.time;
         }
