@@ -20,10 +20,11 @@ public class DropletSpawner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartDrop();
-        }
+        // For debugging
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    StartDrop();
+        //}
 
         if (isDropping)
         {
@@ -44,7 +45,7 @@ public class DropletSpawner : MonoBehaviour
 
                 // Calculate where foam should begin
                 float adjustedNumParticleLayers = numParticleLayers + (float)numDroppedParticles / particlesPerDrop;
-                float whiteHeight = 2 * (1 - adjustedNumParticleLayers / Score.maxLevel) - 0.75f;
+                float whiteHeight = 2 * (1 - adjustedNumParticleLayers / Score.maxLevel) - 0.8f;
                 Shader.SetGlobalFloat("whiteHeight", whiteHeight);
 
                 lastDropTime = Time.time;

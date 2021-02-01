@@ -642,8 +642,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bbc81b58eee24644842631ec0203dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockToSpawn: {fileID: 6441854352263941610, guid: eb33e03a79f101f47b1b085adc48c1f1,
-    type: 3}
+  tetrads:
+  - {fileID: 6441854352263941610, guid: eb33e03a79f101f47b1b085adc48c1f1, type: 3}
+  - {fileID: 3229630377121512510, guid: 668e0c896b7d26e418b0c65a3a47bbe6, type: 3}
+  - {fileID: 2704689743214690607, guid: 3bce96c3ff4a4334183fc33348d29a60, type: 3}
+  - {fileID: 2694418650137094370, guid: 879792e8691daa144a6d58cd86f75195, type: 3}
+  - {fileID: 683035855231603283, guid: 04a44a75a64add04f894b385f6e2b54c, type: 3}
+  - {fileID: 1582973763744087310, guid: 83d0925b7326cf04580303d0f5a7d040, type: 3}
+  - {fileID: 1002480738268771128, guid: 96da8fbcc4a8e9a4592fdedfa0bca563, type: 3}
 --- !u!4 &1426609561
 Transform:
   m_ObjectHideFlags: 0
