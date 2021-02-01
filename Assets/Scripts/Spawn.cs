@@ -2,7 +2,7 @@
 
 public class Spawn : MonoBehaviour
 {
-    [SerializeField] private GameObject blockToSpawn;
+    [SerializeField] private GameObject[] tetrads;
 
     void Start()
     {
@@ -16,6 +16,6 @@ public class Spawn : MonoBehaviour
 
     public void SpawnBlock()
     {
-        Instantiate(blockToSpawn, transform.position, Quaternion.identity);
+        Instantiate(tetrads[Random.Range(0, tetrads.Length)], transform.position, Quaternion.identity);
     }
 }
