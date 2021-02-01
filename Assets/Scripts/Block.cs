@@ -8,6 +8,7 @@ public class Block : MonoBehaviour
         JLSTZ, I, O
     }
 
+    // Wall kick test data from https://tetris.wiki/Super_Rotation_System
     private static readonly Vector2Int[,] wallKickTests_JLSTZ =
     {
         { new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, 0) },
@@ -15,7 +16,6 @@ public class Block : MonoBehaviour
         { new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, 0) },
         { new Vector2Int(0, 0), new Vector2Int(-1, 0), new Vector2Int(-1, -1), new Vector2Int(0, 2), new Vector2Int(-1, 2) }
     };
-
     private static readonly Vector2Int[,] wallKickTests_I =
     {
         { new Vector2Int(0, 0), new Vector2Int(-1, 0), new Vector2Int(2, 0), new Vector2Int(-1, 0), new Vector2Int(2, 0) },
@@ -31,7 +31,6 @@ public class Block : MonoBehaviour
     [SerializeField] private Type blockType;
 
     private int rotationPosition = 0;
-    private bool canMove = true;
     private float prevTime;
     private Playboard board;
     private Score score;
@@ -54,36 +53,30 @@ public class Block : MonoBehaviour
 
     void Update()
     {
-        float gameProgress = score.GetProgress();
-
-        // Update time for tile shaders (for adding wobble when drunk)
-        Shader.SetGlobalFloat("time_s", Time.time);
-        Shader.SetGlobalFloat("drunkness", gameProgress);
-
-        if (!canMove)
-        {
-            return;
-        }
-
         Vector2 displacement = new Vector2();
 
         // Y displacement
-        float fallDelay = (1 - gameProgress) * 0.98f + 0.02f;  // Ranges from 1 to 0.02
+        float fallDelay = (1 - score.GetProgress()) * 0.98f + 0.02f;  // Ranges from 1 to 0.02
         if (Input.GetKey(KeyCode.DownArrow))
         {
             fallDelay *= 0.1f;
         }
-        if (Time.time - prevTime > (Input.GetKey(KeyCode.DownArrow) ? fallDelay/10 : fallDelay))
+        if (Time.time - prevTime > fallDelay)
         {
             displacement.y -= 1;
-            if(!canMove)
-            {
-                displacement.y += 1;
-                this.enabled = false;
-                FindObjectOfType<Spawn>().SpawnBlock();
-            }
             prevTime = Time.time;
         }
+        //if (Time.time - prevTime > (Input.GetKey(KeyCode.DownArrow) ? fallDelay/10 : fallDelay))
+        //{
+        //    displacement.y -= 1;
+        //    if(!canMove)
+        //    {
+        //        displacement.y += 1;
+        //        this.enabled = false;
+        //        FindObjectOfType<Spawn>().SpawnBlock();
+        //    }
+        //    prevTime = Time.time;
+        //}
 
         // X displacement
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -115,7 +108,8 @@ public class Block : MonoBehaviour
                 Displace(0, -displacement.y);
                 spawn.SpawnBlock();
                 board.AddBlockToGrid(this);
-                canMove = false;
+                enabled = false;
+                //canMove = false;
                 break;
             }
         }
@@ -171,7 +165,6 @@ public class Block : MonoBehaviour
         for (int i = 0; i < 5; ++i)
         {
             // Subtract previous rotation position test with new rotation position test
-            // See https://tetris.wiki/Super_Rotation_System for more info
             if (blockType == Type.JLSTZ)
             {
                 displacement = wallKickTests_JLSTZ[prevRotationPosition, i] - wallKickTests_JLSTZ[rotationPosition, i];

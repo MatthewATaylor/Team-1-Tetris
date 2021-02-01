@@ -11,11 +11,16 @@ public class Playboard : MonoBehaviour
 
     void Start()
     {
-        score = GameObject.Find(GlobalNames.score).GetComponent<Score>();    }
+        score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
+    }
 
     void Update()
     {
         //score.UpdateScoreDrop();
+
+        // Update shader uniforms for wobble effect
+        Shader.SetGlobalFloat("time_s", Time.time);
+        Shader.SetGlobalFloat("drunkness", score.GetProgress());
     }
 
     public bool TilePlacedAtTransform(Transform transform)
