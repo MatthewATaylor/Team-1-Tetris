@@ -19,6 +19,11 @@ public class DropletSpawner : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartDrop();
+        }
+
         if (isDropping)
         {
             int numParticlesToDrop = Mathf.RoundToInt((Time.time - lastDropTime) * particlesPerSecond);
@@ -32,6 +37,7 @@ public class DropletSpawner : MonoBehaviour
                     GameObject droplet = Instantiate(dropletObject, dropletPosition, Quaternion.identity);
                     droplet.transform.parent = transform;
                     droplet.GetComponent<Renderer>().sortingOrder = 0;
+                    droplet.layer = GlobalNames.liquidLayer;
                 }
                 StaticBatchingUtility.Combine(transform.gameObject);
                 numDroppedParticles += numParticlesToDrop;
