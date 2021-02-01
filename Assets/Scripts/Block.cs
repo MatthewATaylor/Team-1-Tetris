@@ -45,6 +45,11 @@ public class Block : MonoBehaviour
         board = GameObject.Find(GlobalNames.board).GetComponent<Playboard>();
         score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
         spawn = GameObject.Find(GlobalNames.spawner).GetComponent<Spawn>();
+
+        if (IsPlacementConflict()){
+            Debug.Log("GAME OVER");
+            Destroy(gameObject);
+        }
     }
 
     void Update()
@@ -186,7 +191,7 @@ public class Block : MonoBehaviour
         rotationPosition = prevRotationPosition;
     }
 
-    private bool IsPlacementConflict()
+    public bool IsPlacementConflict()
     {
         // Block not outside of board's size and not overlapping another block
         foreach (Transform tile in Tiles)

@@ -2,26 +2,26 @@
 
 public class Playboard : MonoBehaviour
 {
- 	public static int w = 10;
-	public static int h = 20;
-	public static Transform[,] grid = new Transform[w, h];
+    public static int w = 10;
+    public static int h = 20;
+    public static Transform[,] grid = new Transform[w, h];
 
-	private Score score;
+    private Score score;
     private int totalRowsCleared = 0;
 
-	void Start()
- 	{
-        score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
+    void Start()
+    {
+        score = GameObject.Find(GlobalNames.score).GetComponent<Score>();    }
+
+    void Update()
+    {
+        //score.UpdateScoreDrop();
     }
 
-	void Update()
+    public bool TilePlacedAtTransform(Transform transform)
     {
-        //when block dropped, run UpdateScoreDrop()
-	}
-
-	public bool TilePlacedAtTransform(Transform transform)
-  	{
         Vector2Int indices = GetIndicesOfTransform(transform);
+    
         try
         {
             return grid[indices.x, indices.y] != null;
@@ -45,6 +45,7 @@ public class Playboard : MonoBehaviour
     private void ClearFullRows()
     {
         int numRowsCleared = 0;
+
         for (int i = h - 1; i >= 0; --i)
         {
             bool rowIsFull = true;
