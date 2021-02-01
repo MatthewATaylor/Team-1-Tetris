@@ -9,10 +9,13 @@ public class Score : MonoBehaviour
     [Range(0.0f, 16.0f)]
     public int level;
 
+    private DropletSpawner dropletSpawner;
+
     void Start()
     {
         score = 0;
         level = 1;
+        dropletSpawner = GameObject.Find(GlobalNames.dropletSpawner).GetComponent<DropletSpawner>();
     }
 
     public float GetProgress()
@@ -56,6 +59,7 @@ public class Score : MonoBehaviour
         if (num_lines >= (additionalLinesPerLevel / 2.0f) * (level * level + level))
         {
             level += 1;
+            dropletSpawner.StartDrop();
         }
     }
 }
