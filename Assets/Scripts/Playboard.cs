@@ -7,6 +7,7 @@ public class Playboard : MonoBehaviour
 	public static Transform[,] grid = new Transform[w, h];
 
 	private Score score;
+    private int totalRowsCleared = 0;
 
 	void Start()
  	{
@@ -15,10 +16,7 @@ public class Playboard : MonoBehaviour
 
 	void Update()
     {
-		//when block dropped, update grid
         //when block dropped, run UpdateScoreDrop()
-        //if line cleared, run UpdateScoreRowClear(int num_lines)
- 		//run UpdateLevel(int num_lines)
 	}
 
 	public bool TilePlacedAtTransform(Transform transform)
@@ -40,6 +38,66 @@ public class Playboard : MonoBehaviour
         {
             Vector2Int indices = GetIndicesOfTransform(tile);
             grid[indices.x, indices.y] = tile;
+        }
+        ClearFullRows();
+    }
+
+    private void ClearFullRows()
+    {
+        int numRowsCleared = 0;
+        for (int i = h - 1; i >= 0; --i)
+        {
+            bool rowIsFull = true;
+            for (int j = 0; j < w; ++j)
+            {
+                if (grid[j, i] == null)
+                {
+                    rowIsFull = false;
+                    break;
+                }
+            }
+            if (rowIsFull)
+            {
+                for (int j = 0; j < w; ++j)
+                {
+                    // Clear row
+                    Destroy(grid[j, i].gameObject);
+
+                    // Shift above tiles down
+                    for (int k = i + 1; k < h; ++k)
+                    {
+                        grid[j, k - 1] = grid[j, k];
+
+                        if (grid[j, k] == null)
+                        {
+                            continue;
+                        }
+
+                        Vector2 tilePosition = grid[j, k].position;
+                        tilePosition.y -= 1;
+                        grid[j, k].position = tilePosition;
+                    }
+
+                    // Make top row null
+                    for (int k = 0; k < w; ++k)
+                    {
+                        if (grid[k, h - 1] == null)
+                        {
+                            continue;
+                        }
+
+                        Destroy(grid[k, h - 1].gameObject);
+                        grid[k, h - 1] = null;
+                    }
+                }
+
+                ++numRowsCleared;
+            }
+        }
+
+        if (numRowsCleared > 0)
+        {
+            totalRowsCleared += numRowsCleared;
         }
     }
 

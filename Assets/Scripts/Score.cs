@@ -2,7 +2,7 @@
 
 public class Score : MonoBehaviour
 {
-    public const int maxLevel = 16;
+    public const int maxLevel = 8;
 
     public int score;
 
@@ -21,12 +21,12 @@ public class Score : MonoBehaviour
         return (float)(level - 1) / (maxLevel - 1);
     }
 
-    void UpdateScoreDrop(Sprite block)
+    public void UpdateScoreDrop(Sprite block)
     {
         score += 2 * block.GetPhysicsShapeCount();
     }
 
-    void UpdateScoreRowClear(int num_lines)
+    public void UpdateScoreRowClear(int num_lines)
     {
         if (num_lines == 1)
         {
@@ -50,7 +50,7 @@ public class Score : MonoBehaviour
         }
     }
 
-    void UpdateLevel(int num_lines)
+    public void UpdateLevel(int num_lines)
     {
         if (num_lines % (4 * level) == 0)
         {
