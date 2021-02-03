@@ -38,7 +38,7 @@ public class DropletSpawner : MonoBehaviour
                     dropletPosition.y += Random.Range(-0.5f, 0.5f);
                     GameObject droplet = Instantiate(dropletObject, dropletPosition, Quaternion.identity);
                     droplet.transform.parent = transform;  // Set droplet spawner as parent
-                    droplet.GetComponent<Renderer>().sortingOrder = 0;  // Render behind board
+                    droplet.GetComponent<Renderer>().sortingOrder = -1;  // Render behind board
                     droplet.layer = GlobalNames.liquidLayer;  // Set layer for liquid camera
                 }
                 numDroppedParticles += numParticlesToDrop;

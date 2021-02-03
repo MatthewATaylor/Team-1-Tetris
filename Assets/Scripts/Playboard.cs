@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Playboard : MonoBehaviour
 {
@@ -6,8 +7,11 @@ public class Playboard : MonoBehaviour
     public static int h = 20;
     public static Transform[,] grid = new Transform[w, h];
 
+    [SerializeField] private ParticleSystem explosionParticleSystem;
+
     private Score score;
     private int totalRowsCleared = 0;
+    private List<ParticleSystem> activeParticleSystems = new List<ParticleSystem>();
 
     void Start()
     {
@@ -21,6 +25,21 @@ public class Playboard : MonoBehaviour
         // Update shader uniforms for wobble effect
         Shader.SetGlobalFloat("time_s", Time.time);
         Shader.SetGlobalFloat("drunkness", score.GetProgress());
+
+        // Remove dead particle systems
+        int i = 0;
+        while (i < activeParticleSystems.Count)
+        {
+            if (activeParticleSystems[i].IsAlive())
+            {
+                ++i;
+            }
+            else
+            {
+                Destroy(activeParticleSystems[i].gameObject);
+                activeParticleSystems.RemoveAt(i);
+            }
+        }
     }
 
     public bool TilePlacedAtTransform(Transform transform)
@@ -66,8 +85,16 @@ public class Playboard : MonoBehaviour
             {
                 for (int j = 0; j < w; ++j)
                 {
-                    // Clear row
-                    Destroy(grid[j, i].gameObject);
+                    if (grid[j, i] != null)
+                    {
+                        // Add explosion particle system
+                        ParticleSystem explosion = Instantiate(explosionParticleSystem, grid[j, i].position, Quaternion.identity);
+                        explosion.GetComponent<Renderer>().sortingOrder = 2;
+                        activeParticleSystems.Add(explosion);
+
+                        // Clear row
+                        Destroy(grid[j, i].gameObject);
+                    }
 
                     // Shift above tiles down
                     for (int k = i + 1; k < h; ++k)

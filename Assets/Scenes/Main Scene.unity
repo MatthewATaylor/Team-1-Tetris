@@ -694,6 +694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2943491c6c19753459e56c052c04eb95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionParticleSystem: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
+    type: 3}
 --- !u!212 &1543349055
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -732,7 +734,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fb08cbb0c95ae1343b7dacbe304c24bc, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
