@@ -66,17 +66,6 @@ public class Block : MonoBehaviour
             displacement.y -= 1;
             prevTime = Time.time;
         }
-        //if (Time.time - prevTime > (Input.GetKey(KeyCode.DownArrow) ? fallDelay/10 : fallDelay))
-        //{
-        //    displacement.y -= 1;
-        //    if(!canMove)
-        //    {
-        //        displacement.y += 1;
-        //        this.enabled = false;
-        //        FindObjectOfType<Spawn>().SpawnBlock();
-        //    }
-        //    prevTime = Time.time;
-        //}
 
         // X displacement
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -195,8 +184,9 @@ public class Block : MonoBehaviour
         // Block not outside of board's size and not overlapping another block
         foreach (Transform tile in Tiles)
         {
-            if (Mathf.Abs(tile.position.x) > Playboard.w / 2.0f ||
-                Mathf.Abs(tile.position.y) > Playboard.h / 2.0f ||
+            Vector2 tileRelativePosition = board.GetRelativePosition(tile.position);
+            if (Mathf.Abs(tileRelativePosition.x) > Playboard.w / 2.0f ||
+                Mathf.Abs(tileRelativePosition.y) > Playboard.h / 2.0f ||
                 board.TilePlacedAtTransform(tile))
             {
                 return true;

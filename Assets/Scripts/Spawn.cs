@@ -16,6 +16,7 @@ public class Spawn : MonoBehaviour
 
     public void SpawnBlock()
     {
-        Instantiate(tetrads[Random.Range(0, tetrads.Length)], transform.position, Quaternion.identity);
+        GameObject newBlock = Instantiate(tetrads[Random.Range(0, tetrads.Length)], transform.position, Quaternion.identity);
+        newBlock.transform.SetParent(transform.parent);  // Set parent to Playboard
     }
 }

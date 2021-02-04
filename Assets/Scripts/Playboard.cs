@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Playboard : MonoBehaviour
 {
-    public static int w = 10;
-    public static int h = 20;
+    public const int w = 10;
+    public const int h = 18;
     public static Transform[,] grid = new Transform[w, h];
 
     [SerializeField] private ParticleSystem explosionParticleSystem;
@@ -40,6 +40,12 @@ public class Playboard : MonoBehaviour
                 activeParticleSystems.RemoveAt(i);
             }
         }
+    }
+
+    public Vector2 GetRelativePosition(Vector3 worldPosition)
+    {
+        // Get position of transform relative to Playboard
+        return worldPosition - transform.position;
     }
 
     public bool TilePlacedAtTransform(Transform transform)
@@ -138,8 +144,9 @@ public class Playboard : MonoBehaviour
 
     private Vector2Int GetIndicesOfTransform(Transform transform)
     {
-        int xIndex = Mathf.RoundToInt(transform.position.x - 0.5f) + w / 2;
-        int yIndex = Mathf.RoundToInt(transform.position.y - 0.5f) + h / 2;
+        Vector2 relativePosition = GetRelativePosition(transform.position);
+        int xIndex = Mathf.RoundToInt(relativePosition.x - 0.5f) + w / 2;
+        int yIndex = Mathf.RoundToInt(relativePosition.y - 0.5f) + h / 2;
         return new Vector2Int(xIndex, yIndex);
     }
 }
