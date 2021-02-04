@@ -27,6 +27,8 @@ public class Block : MonoBehaviour
     // Parent transform of four tiles
     public Transform Tiles { get; private set; }
 
+    public ParticleSystem explosionParticleSystem;
+
     [SerializeField] private Transform rotationPoint;
     [SerializeField] private Type blockType;
 

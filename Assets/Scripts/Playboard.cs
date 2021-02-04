@@ -3,11 +3,22 @@ using UnityEngine;
 
 public class Playboard : MonoBehaviour
 {
+    private class SavedTile
+    {
+        public Transform tile;
+        public ParticleSystem particleSystem;
+
+        public SavedTile(Transform tile, ParticleSystem particleSystem)
+        {
+            this.tile = tile;
+            this.particleSystem = particleSystem;
+        }
+    }
+
     public const int w = 10;
     public const int h = 18;
-    public static Transform[,] grid = new Transform[w, h];
 
-    [SerializeField] private ParticleSystem explosionParticleSystem;
+    private static SavedTile[,] grid = new SavedTile[w, h];
 
     private Score score;
     private int totalRowsCleared = 0;
@@ -67,7 +78,7 @@ public class Playboard : MonoBehaviour
         foreach (Transform tile in block.Tiles)
         {
             Vector2Int indices = GetIndicesOfTransform(tile);
-            grid[indices.x, indices.y] = tile;
+            grid[indices.x, indices.y] = new SavedTile(tile, block.explosionParticleSystem);
         }
         ClearFullRows();
     }
@@ -94,12 +105,12 @@ public class Playboard : MonoBehaviour
                     if (grid[j, i] != null)
                     {
                         // Add explosion particle system
-                        ParticleSystem explosion = Instantiate(explosionParticleSystem, grid[j, i].position, Quaternion.identity);
+                        ParticleSystem explosion = Instantiate(grid[j, i].particleSystem, grid[j, i].tile.position, Quaternion.identity);
                         explosion.GetComponent<Renderer>().sortingOrder = 2;
                         activeParticleSystems.Add(explosion);
 
                         // Clear row
-                        Destroy(grid[j, i].gameObject);
+                        Destroy(grid[j, i].tile.gameObject);
                     }
 
                     // Shift above tiles down
@@ -112,9 +123,9 @@ public class Playboard : MonoBehaviour
                             continue;
                         }
 
-                        Vector2 tilePosition = grid[j, k].position;
+                        Vector2 tilePosition = grid[j, k].tile.position;
                         tilePosition.y -= 1;
-                        grid[j, k].position = tilePosition;
+                        grid[j, k].tile.position = tilePosition;
                     }
 
                     // Make top row null
@@ -125,7 +136,7 @@ public class Playboard : MonoBehaviour
                             continue;
                         }
 
-                        Destroy(grid[k, h - 1].gameObject);
+                        Destroy(grid[k, h - 1].tile.gameObject);
                         grid[k, h - 1] = null;
                     }
                 }
