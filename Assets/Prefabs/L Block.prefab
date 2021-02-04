@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationPoint: {fileID: 132670486962101575}
+  blockType: 0
 --- !u!1 &3222319164983460944
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +173,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6206133398325073271, guid: 025d8793e9ad706469dbe8c08e8fe8a2,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name
@@ -247,6 +254,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 708743447674329700, guid: 025d8793e9ad706469dbe8c08e8fe8a2,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name
@@ -322,6 +335,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5843749354736126666, guid: 025d8793e9ad706469dbe8c08e8fe8a2,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name
@@ -397,6 +416,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3089188087113997321, guid: 025d8793e9ad706469dbe8c08e8fe8a2,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name

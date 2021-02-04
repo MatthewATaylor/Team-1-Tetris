@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationPoint: {fileID: 528185017836899860}
+  blockType: 0
 --- !u!1 &6471311681643456903
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +173,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 9219982621687363099, guid: 22ecf9bf9f5110444b93163c78f77e00,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name
@@ -247,6 +254,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5753066743804090458, guid: 22ecf9bf9f5110444b93163c78f77e00,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name
@@ -322,6 +335,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6202252567391381833, guid: 22ecf9bf9f5110444b93163c78f77e00,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name
@@ -397,6 +416,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049072510611128333, guid: 7f210dc927d7637478721586223cdb61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 600463762716793643, guid: 22ecf9bf9f5110444b93163c78f77e00,
+        type: 3}
     - target: {fileID: 3049072510611128334, guid: 7f210dc927d7637478721586223cdb61,
         type: 3}
       propertyPath: m_Name
