@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: Liquid Camera Profile
+  m_Name: Explosion Camera Profile
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 5900169159051577583}
---- !u!114 &5900169159051577583
+  - {fileID: 6664777258978195752}
+--- !u!114 &6664777258978195752
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31,5 +31,5 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   numPixels:
-    overrideState: 1
-    value: 52
+    overrideState: 0
+    value: 75
