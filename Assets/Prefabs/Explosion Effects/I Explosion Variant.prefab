@@ -14,19 +14,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
         type: 3}
+      propertyPath: UVModule.mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
+        type: 3}
+      propertyPath: UVModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
+        type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.93333334
+      value: 0.93725497
       objectReference: {fileID: 0}
     - target: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.93333334
+      value: 0.93725497
       objectReference: {fileID: 0}
     - target: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.5137255
+      value: 0.5176471
       objectReference: {fileID: 0}
+    - target: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
+        type: 3}
+      propertyPath: UVModule.sprites.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fc71a9fe67779b54cbd0a5eb1841b1d2,
+        type: 3}
     - target: {fileID: 1505620684315986537, guid: 65fbe094329f2c5478bcc87763d951d3,
         type: 3}
       propertyPath: m_RootOrder

@@ -22,6 +22,12 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.g
       value: 0.87843144
       objectReference: {fileID: 0}
+    - target: {fileID: 1505620684315986534, guid: 65fbe094329f2c5478bcc87763d951d3,
+        type: 3}
+      propertyPath: UVModule.sprites.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fc71a9fe67779b54cbd0a5eb1841b1d2,
+        type: 3}
     - target: {fileID: 1505620684315986537, guid: 65fbe094329f2c5478bcc87763d951d3,
         type: 3}
       propertyPath: m_RootOrder

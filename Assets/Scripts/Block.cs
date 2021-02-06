@@ -110,12 +110,6 @@ public class Block : MonoBehaviour
 
     private void ControlRotation()
     {
-        // O block doesn't rotate
-        if (blockType == Type.O)
-        {
-            return;
-        }
-
         int prevRotationPosition = rotationPosition;
         int rotationDirection;
 
@@ -146,7 +140,11 @@ public class Block : MonoBehaviour
             rotationPosition = 0;
         }
 
-        ApplyWallKick(prevRotationPosition, 90 * rotationDirection);
+        // Don't need to apply wall kicks to O block
+        if (blockType != Type.O)
+        {
+            ApplyWallKick(prevRotationPosition, 90 * rotationDirection);
+        }
     }
 
     private void ApplyWallKick(int prevRotationPosition, float rotationAmount)

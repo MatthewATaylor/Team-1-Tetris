@@ -107,7 +107,6 @@ public class Playboard : MonoBehaviour
                         // Add explosion particle system
                         ParticleSystem explosion = Instantiate(grid[j, i].particleSystem, grid[j, i].tile.position, Quaternion.identity);
                         explosion.GetComponent<Renderer>().sortingOrder = 2;
-                        explosion.gameObject.layer = GlobalNames.explosionLayer;
                         activeParticleSystems.Add(explosion);
 
                         // Clear row
