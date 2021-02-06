@@ -2,11 +2,19 @@
 
 public class DropletSpawner : MonoBehaviour
 {
-    private const int particlesPerDrop = 50;
+    private const int particlesPerDrop = 40;
     private const int secondsPerDrop = 3;
     private const float particlesPerSecond = (float)particlesPerDrop / secondsPerDrop;
 
     [SerializeField] private GameObject dropletObject;
+    [SerializeField] private GameObject bottomIndicator;
+    [SerializeField] private Camera liquidCamera;
+
+    private float top;
+    private float bottom;
+
+    private float normalizedTop;
+    private float normalizedBottom;
 
     private float lastDropTime = 0;
     private bool isDropping = false;
@@ -15,7 +23,20 @@ public class DropletSpawner : MonoBehaviour
 
     void Start()
     {
+        // Find top and bottom of beer container
+        top = transform.position.y;
 
+        float bottomIndicatorHeight = 0;
+        if (bottomIndicator.TryGetComponent(out Collider2D bottomCollider))
+        {
+            bottomIndicatorHeight = bottomCollider.bounds.size.y;
+        }
+        bottom = bottomIndicator.transform.position.y + bottomIndicatorHeight / 2.0f;
+
+        // Find location of top and bottom in HLSL screen coordinates
+        float cameraViewHalfHeight = liquidCamera.orthographicSize;
+        normalizedTop = top / cameraViewHalfHeight * -1;
+        normalizedBottom = bottom / cameraViewHalfHeight * -1;
     }
 
     void Update()
@@ -38,15 +59,16 @@ public class DropletSpawner : MonoBehaviour
                     dropletPosition.y += Random.Range(-0.5f, 0.5f);
                     GameObject droplet = Instantiate(dropletObject, dropletPosition, Quaternion.identity);
                     droplet.transform.parent = transform;  // Set droplet spawner as parent
-                    droplet.GetComponent<Renderer>().sortingOrder = -1;  // Render behind board
+                    droplet.GetComponent<Renderer>().sortingOrder = -2;  // Render behind board
                     droplet.layer = GlobalNames.liquidLayer;  // Set layer for liquid camera
                 }
                 numDroppedParticles += numParticlesToDrop;
 
                 // Calculate where foam should begin
                 float adjustedNumParticleLayers = numParticleLayers + (float)numDroppedParticles / particlesPerDrop;
-                float whiteHeight = 2 * (1 - adjustedNumParticleLayers / Score.maxLevel) - 0.8f;
-                Shader.SetGlobalFloat("whiteHeight", whiteHeight);
+                float fillFraction = adjustedNumParticleLayers / Score.maxLevel;  // 0 to 1
+                float fillTop = normalizedBottom * (1 - fillFraction) + normalizedTop * fillFraction;  // normalizedBottom to normalizedTop
+                Shader.SetGlobalFloat("whiteHeight", fillTop + 0.06f);
 
                 lastDropTime = Time.time;
 
