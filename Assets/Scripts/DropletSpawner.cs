@@ -2,6 +2,7 @@
 
 public class DropletSpawner : MonoBehaviour
 {
+    private const int maxLevel = 8;
     private const int particlesPerDrop = 40;
     private const int secondsPerDrop = 3;
     private const float particlesPerSecond = (float)particlesPerDrop / secondsPerDrop;
@@ -66,7 +67,7 @@ public class DropletSpawner : MonoBehaviour
 
                 // Calculate where foam should begin
                 float adjustedNumParticleLayers = numParticleLayers + (float)numDroppedParticles / particlesPerDrop;
-                float fillFraction = adjustedNumParticleLayers / Score.maxLevel;  // 0 to 1
+                float fillFraction = adjustedNumParticleLayers / maxLevel;  // 0 to 1
                 float fillTop = normalizedBottom * (1 - fillFraction) + normalizedTop * fillFraction;  // normalizedBottom to normalizedTop
                 Shader.SetGlobalFloat("whiteHeight", fillTop + 0.06f);
 

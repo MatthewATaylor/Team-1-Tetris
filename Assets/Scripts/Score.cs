@@ -2,26 +2,18 @@
 
 public class Score : MonoBehaviour
 {
-    public const int maxLevel = 8;
+    public int Level { get; private set; } = 7;
 
     [SerializeField] private FontRenderer scoreRenderer;
     [SerializeField] private FontRenderer linesRenderer;
     [SerializeField] private Spawn spawn;
 
     private int score = 0;
-    private int level = 1;
-
     private DropletSpawner dropletSpawner;
 
     void Start()
     {
         dropletSpawner = GameObject.Find(GlobalNames.dropletSpawner).GetComponent<DropletSpawner>();
-    }
-
-    public float GetProgress()
-    {
-        // Return fraction of game completed
-        return (float)(level - 1) / (maxLevel - 1);
     }
 
     public void UpdateScoreRowClear(int numLines)
@@ -53,9 +45,9 @@ public class Score : MonoBehaviour
     public void UpdateLevel(int numLines)
     {
         const int additionalLinesPerLevel = 2;
-        if (numLines >= (additionalLinesPerLevel / 2.0f) * (level * level + level))
+        if (numLines >= (additionalLinesPerLevel / 2.0f) * (Level * Level + Level))
         {
-            ++level;
+            ++Level;
             dropletSpawner.StartDrop();
             spawn.ShouldGenerateXanax = true;
         }

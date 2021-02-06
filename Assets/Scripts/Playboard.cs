@@ -35,7 +35,7 @@ public class Playboard : MonoBehaviour
     {
         // Update shader uniforms for wobble effect
         Shader.SetGlobalFloat("time_s", Time.time);
-        Shader.SetGlobalFloat("drunkness", score.GetProgress());
+        Shader.SetGlobalFloat("drunkness", 0.125f * score.Level);
 
         // Remove dead particle systems
         int i = 0;

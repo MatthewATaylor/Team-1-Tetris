@@ -59,7 +59,7 @@ public class Block : MonoBehaviour
         Vector2 displacement = new Vector2();
 
         // Y displacement
-        float fallDelay = (1 - score.GetProgress()) * 0.98f + 0.02f;  // Ranges from 1 to 0.02
+        float fallDelay = (1 - 0.125f * score.Level) * 0.95f + 0.05f;
         if (Input.GetKey(KeyCode.DownArrow))
         {
             fallDelay *= 0.1f;

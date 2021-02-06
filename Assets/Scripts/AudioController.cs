@@ -14,6 +14,10 @@ public class AudioController : MonoBehaviour
     void Update()
     {
         // Decrease music pitch and tempo as score increases
-        audioSource.pitch = (1 - score.GetProgress()) * 0.95f + 0.05f;
+        audioSource.pitch = (1 - 0.125f * score.Level) * 0.95f + 0.05f;
+        if (audioSource.pitch < 0.1f)
+        {
+            audioSource.pitch = 0.1f;
+        }
     }
 }
