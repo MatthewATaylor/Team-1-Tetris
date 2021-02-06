@@ -20,6 +20,12 @@ public sealed class Blurred : PostProcessEffectSettings
 
     [Range(0.0f, 1.0f)]
     public FloatParameter boardBottom = new FloatParameter { value = 0.2f };
+
+    [Range(0.0f, 10000.0f)]
+    public FloatParameter screenWidth = new FloatParameter { value = 800.0f };
+
+    [Range(0.0f, 10000.0f)]
+    public FloatParameter screenHeight = new FloatParameter { value = 600.0f };
 }
 
 public sealed class BlurredRenderer : PostProcessEffectRenderer<Blurred>
@@ -32,6 +38,8 @@ public sealed class BlurredRenderer : PostProcessEffectRenderer<Blurred>
         sheet.properties.SetFloat("boardRight", settings.boardRight);
         sheet.properties.SetFloat("boardTop", settings.boardTop);
         sheet.properties.SetFloat("boardBottom", settings.boardBottom);
+        sheet.properties.SetFloat("screenWidth", settings.screenWidth);
+        sheet.properties.SetFloat("screenHeight", settings.screenHeight);
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
     }
 }

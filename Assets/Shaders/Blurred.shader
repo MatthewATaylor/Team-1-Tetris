@@ -11,12 +11,11 @@
 		float boardRight;
 		float boardTop;
 		float boardBottom;
+		float screenWidth;
+		float screenHeight;
 
 		float4 Frag(VaryingsDefault input) : SV_Target
 		{
-			const float WIDTH_PX = 2048.0f;
-			const float HEIGHT_PX = 1600.0f;
-
 			bool withinBoard =
 				input.texcoord.x >= boardLeft &&
 				input.texcoord.x <= boardRight &&
@@ -31,7 +30,7 @@
 			for (i = -maxOffset; i <= maxOffset; ++i) {
 				// Calculate x coordinate of sample
 				float2 sampleCoords = input.texcoord;
-				float xOffset = i * 1.0f / WIDTH_PX;
+				float xOffset = i * 1.0f / screenWidth;
 				bool xOutOfBounds =
 					sampleCoords.x + xOffset > boardRight ||
 					sampleCoords.x + xOffset < boardLeft;
@@ -51,7 +50,7 @@
 			for (i = -maxOffset; i <= maxOffset; ++i) {
 				// Calculate x coordinate of sample
 				float2 sampleCoords = input.texcoord;
-				float yOffset = i * 1.0f / HEIGHT_PX;
+				float yOffset = i * 1.0f / screenHeight;
 				bool yOutOfBounds =
 					sampleCoords.y + yOffset > boardTop ||
 					sampleCoords.y + yOffset < boardBottom;
