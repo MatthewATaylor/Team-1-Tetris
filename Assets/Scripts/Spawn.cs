@@ -4,6 +4,9 @@ public class Spawn : MonoBehaviour
 {
     public const int queueSize = 3;
 
+    public GameObject ActiveBlock { get; private set; }
+    public GameObject ActiveBlockPrefab { get; private set; }
+
     private Block[] blockQueue = new Block[queueSize];
 
     [SerializeField] private BlockPreview preview;
@@ -27,8 +30,9 @@ public class Spawn : MonoBehaviour
     public void SpawnBlock()
     {
         // Instantiate first tetromino in queue
-        GameObject newBlock = Instantiate(blockQueue[0].gameObject, transform.position, Quaternion.identity);
-        newBlock.transform.SetParent(transform.parent);  // Set parent to Playboard
+        ActiveBlock = Instantiate(blockQueue[0].gameObject, transform.position, Quaternion.identity);
+        ActiveBlock.transform.SetParent(transform.parent);  // Set parent to Playboard
+        ActiveBlockPrefab = blockQueue[0].gameObject;
 
         // Shift queue forwards
         for (int i = 0; i < queueSize - 1; ++i)
@@ -40,6 +44,13 @@ public class Spawn : MonoBehaviour
         blockQueue[queueSize - 1] = GetRandomBlock();
 
         preview.Refresh(blockQueue);
+    }
+
+    public void SpawnBlock(Block blockPrefab)
+    {
+        ActiveBlock = Instantiate(blockPrefab.gameObject, transform.position, Quaternion.identity);
+        ActiveBlock.transform.SetParent(transform.parent);  // Set parent to Playboard
+        ActiveBlockPrefab = blockPrefab.gameObject;
     }
 
     private Block GetRandomBlock()
