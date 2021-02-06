@@ -8,6 +8,12 @@ public class Block : MonoBehaviour
         JLSTZ, I, O
     }
 
+    // Parent transform of four tiles
+    public Transform Tiles { get; private set; }
+
+    public ParticleSystem explosionParticleSystem;
+    public GameObject preview;
+
     // Wall kick test data from https://tetris.wiki/Super_Rotation_System
     private static readonly Vector2Int[,] wallKickTests_JLSTZ =
     {
@@ -23,11 +29,6 @@ public class Block : MonoBehaviour
         { new Vector2Int(0, 0), new Vector2Int(2, 0), new Vector2Int(-1, 0), new Vector2Int(2, -1), new Vector2Int(-1, -1) },
         { new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, 0), new Vector2Int(0, -2), new Vector2Int(0, 1) }
     };
-
-    // Parent transform of four tiles
-    public Transform Tiles { get; private set; }
-
-    public ParticleSystem explosionParticleSystem;
 
     [SerializeField] private Transform rotationPoint;
     [SerializeField] private Type blockType;

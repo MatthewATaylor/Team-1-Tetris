@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionParticleSystem: {fileID: 6776330829239657422, guid: 88f63dfd8a11ff64abffc91eb19165d8,
     type: 3}
+  preview: {fileID: 6139224694859687633, guid: c82f9ca0bb6d35348a468d6334719bb4, type: 3}
   rotationPoint: {fileID: 132670486962101575}
   blockType: 0
 --- !u!1 &3222319164983460944

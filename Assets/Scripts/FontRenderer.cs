@@ -6,6 +6,7 @@ public class FontRenderer : MonoBehaviour
 {
     private const float characterWidth = 1;
 
+    [SerializeField] private string initialText = "";
     [SerializeField] private List<char> characterChars;
     [SerializeField] private List<Sprite> characterSprites;
 
@@ -27,6 +28,8 @@ public class FontRenderer : MonoBehaviour
         {
             characters.Add(characterChars[i], characterSprites[i]);
         }
+
+        SetText(initialText);
     }
 
     void Update()
