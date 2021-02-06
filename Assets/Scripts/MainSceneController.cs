@@ -14,5 +14,9 @@ public class MainSceneController : MonoBehaviour
         {
             SceneManager.LoadScene(GlobalNames.titleScene);
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(GlobalNames.mainScene);
+        }
     }
 }

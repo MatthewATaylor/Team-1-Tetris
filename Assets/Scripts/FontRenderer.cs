@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class FontRenderer : MonoBehaviour
 {
     private const float characterWidth = 1;
 
     [SerializeField] private string initialText = "";
+    [SerializeField] private int order = 0;
     [SerializeField] private List<char> characterChars;
     [SerializeField] private List<Sprite> characterSprites;
 
@@ -38,14 +38,14 @@ public class FontRenderer : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        RemoveActiveCharacters();
+    }
+
     public void SetText(string text)
     {
-        // Remove currently active characters
-        for (int i = 0; i < activeCharacters.Count; ++i)
-        {
-            Destroy(activeCharacters[0]);
-            activeCharacters.RemoveAt(0);
-        }
+        RemoveActiveCharacters();
 
         // Update with new text
         for (int i = 0; i < text.Length; ++i)
@@ -62,7 +62,9 @@ public class FontRenderer : MonoBehaviour
         GameObject characterObject = new GameObject(character + " Character");
         characterObject.transform.position = position;
         characterObject.transform.parent = transform;
+        characterObject.layer = transform.gameObject.layer;  // Same layer as parent
         SpriteRenderer renderer = characterObject.AddComponent<SpriteRenderer>();
+        characterObject.GetComponent<SpriteRenderer>().sortingOrder = order;
         try
         {
             renderer.sprite = characters[character];
@@ -72,5 +74,14 @@ public class FontRenderer : MonoBehaviour
             throw new KeyNotFoundException("Key: '" + character + "' not found in FontRenderer");
         }
         return characterObject;
+    }
+
+    private void RemoveActiveCharacters()
+    {
+        for (int i = 0; i < activeCharacters.Count; ++i)
+        {
+            Destroy(activeCharacters[0]);
+            activeCharacters.RemoveAt(0);
+        }
     }
 }

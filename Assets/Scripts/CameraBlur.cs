@@ -3,6 +3,8 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class CameraBlur : MonoBehaviour
 {
+    public bool GameIsOver { get; set; } = false;
+
     [SerializeField] private Transform boardTopLeft;
     [SerializeField] private Transform boardBottomRight;
 
@@ -22,7 +24,7 @@ public class CameraBlur : MonoBehaviour
 
     void Update()
     {
-        blurred.maxOffset.value = score.Level * 5;
+        blurred.maxOffset.value = GameIsOver ? 0 : score.Level * 5;
 
         Vector3 topLeft = cam.WorldToScreenPoint(boardTopLeft.position);
         Vector3 bottomRight = cam.WorldToScreenPoint(boardBottomRight.position);

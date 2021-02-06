@@ -2,7 +2,7 @@
 
 public class Score : MonoBehaviour
 {
-    public int Level { get; private set; } = 7;
+    public int Level { get; private set; } = 0;
 
     [SerializeField] private FontRenderer scoreRenderer;
     [SerializeField] private FontRenderer linesRenderer;

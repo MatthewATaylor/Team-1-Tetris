@@ -48,8 +48,11 @@ public class Block : MonoBehaviour
         score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
         spawn = GameObject.Find(GlobalNames.spawner).GetComponent<Spawn>();
 
-        if (IsPlacementConflict()){
-            Debug.Log("GAME OVER");
+        if (IsPlacementConflict())
+        {
+            GameObject.Find(GlobalNames.messageManager).transform.
+                Find(GlobalNames.gameOverMessage).gameObject.SetActive(true);
+            //GameObject.Find(GlobalNames.blockCamera).GetComponent<CameraBlur>().GameIsOver = true;
             Destroy(gameObject);
         }
     }
