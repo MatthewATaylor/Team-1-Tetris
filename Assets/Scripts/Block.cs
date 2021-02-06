@@ -50,15 +50,18 @@ public class Block : MonoBehaviour
 
         if (IsPlacementConflict())
         {
-            GameObject.Find(GlobalNames.messageManager).transform.
-                Find(GlobalNames.gameOverMessage).gameObject.SetActive(true);
-            //GameObject.Find(GlobalNames.blockCamera).GetComponent<CameraBlur>().GameIsOver = true;
+            GlobalState.IsGameOver = true;
             Destroy(gameObject);
         }
     }
 
     void Update()
     {
+        if (GlobalState.IsPaused)
+        {
+            return;
+        }
+
         Vector2 displacement = new Vector2();
 
         // Y displacement
@@ -83,7 +86,7 @@ public class Block : MonoBehaviour
             displacement.x += 1;
         }
 
-        // X displacement checks
+        // X/ displacement checks
         Displace(displacement.x, 0);
         foreach (Transform tile in Tiles)
         {

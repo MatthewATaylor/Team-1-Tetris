@@ -8,6 +8,7 @@ public class FontRenderer : MonoBehaviour
 
     [SerializeField] private string initialText = "";
     [SerializeField] private int order = 0;
+    [SerializeField] private GameObject border;
     [SerializeField] private List<char> characterChars;
     [SerializeField] private List<Sprite> characterSprites;
 
@@ -16,6 +17,8 @@ public class FontRenderer : MonoBehaviour
 
     // List of characters currently being displayed
     private List<GameObject> activeCharacters = new List<GameObject>();
+
+    private float borderWidth = 0.0f;
 
     void Start()
     {
@@ -28,6 +31,11 @@ public class FontRenderer : MonoBehaviour
         for (int i = 0; i < characterChars.Count; ++i)
         {
             characters.Add(characterChars[i], characterSprites[i]);
+        }
+
+        if (border != null)
+        {
+            borderWidth = border.GetComponent<Renderer>().bounds.size.x;
         }
 
         SetText(initialText);
@@ -47,13 +55,40 @@ public class FontRenderer : MonoBehaviour
     {
         RemoveActiveCharacters();
 
+        float textWidth = text.Length * characterWidth;
+        float firstCharacterX = transform.position.x - textWidth / 2.0f + characterWidth / 2.0f;
+
+        // Add left border
+        if (border != null)
+        {
+            Vector3 borderPosition = transform.position;
+            borderPosition.x = firstCharacterX - characterWidth / 2.0f - borderWidth / 2.0f;
+            GameObject borderObject = Instantiate(border, borderPosition, Quaternion.identity);
+            borderObject.transform.parent = transform;
+            borderObject.layer = gameObject.layer;
+            borderObject.GetComponent<Renderer>().sortingOrder = order;
+            activeCharacters.Add(borderObject);
+        }
+
         // Update with new text
         for (int i = 0; i < text.Length; ++i)
         {
             Vector2 characterPosition = transform.position;
-            characterPosition.x += characterWidth * i;
+            characterPosition.x = firstCharacterX + i * characterWidth;
             GameObject characterObject = CreateGameObjectForCharacter(text[i], characterPosition);
             activeCharacters.Add(characterObject);
+        }
+
+        // Add right border
+        if (border != null)
+        {
+            Vector3 borderPosition = transform.position;
+            borderPosition.x += textWidth / 2.0f + borderWidth / 2.0f;
+            GameObject borderObject = Instantiate(border, borderPosition, Quaternion.identity);
+            borderObject.transform.parent = transform;
+            borderObject.layer = gameObject.layer;
+            borderObject.GetComponent<Renderer>().sortingOrder = order;
+            activeCharacters.Add(borderObject);
         }
     }
 
@@ -62,9 +97,9 @@ public class FontRenderer : MonoBehaviour
         GameObject characterObject = new GameObject(character + " Character");
         characterObject.transform.position = position;
         characterObject.transform.parent = transform;
-        characterObject.layer = transform.gameObject.layer;  // Same layer as parent
+        characterObject.layer = gameObject.layer;  // Same layer as parent
         SpriteRenderer renderer = characterObject.AddComponent<SpriteRenderer>();
-        characterObject.GetComponent<SpriteRenderer>().sortingOrder = order;
+        characterObject.GetComponent<Renderer>().sortingOrder = order;
         try
         {
             renderer.sprite = characters[character];

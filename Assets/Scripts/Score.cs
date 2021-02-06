@@ -45,7 +45,7 @@ public class Score : MonoBehaviour
     public void UpdateLevel(int numLines)
     {
         const int additionalLinesPerLevel = 2;
-        if (numLines >= (additionalLinesPerLevel / 2.0f) * (Level * Level + Level))
+        if (numLines >= (additionalLinesPerLevel / 2.0f) * ((Level + 1) * (Level + 1) + Level + 1))
         {
             ++Level;
             dropletSpawner.StartDrop();
