@@ -23,13 +23,6 @@ public class Score : MonoBehaviour
         return (float)(level - 1) / (maxLevel - 1);
     }
 
-    public void UpdateScoreDrop(Sprite block)
-    {
-        score += 2 * block.GetPhysicsShapeCount();
-
-        UpdateScoreDisplay();
-    }
-
     public void UpdateScoreRowClear(int numLines)
     {
         if (numLines == 1)

@@ -18,7 +18,7 @@ public class Playboard : MonoBehaviour
     public const int w = 10;
     public const int h = 18;
 
-    private static SavedTile[,] grid = new SavedTile[w, h];
+    private SavedTile[,] grid = new SavedTile[w, h];
 
     private Score score;
     private int totalRowsCleared = 0;
@@ -31,8 +31,6 @@ public class Playboard : MonoBehaviour
 
     void Update()
     {
-        //score.UpdateScoreDrop();
-
         // Update shader uniforms for wobble effect
         Shader.SetGlobalFloat("time_s", Time.time);
         Shader.SetGlobalFloat("drunkness", score.GetProgress());
