@@ -22,7 +22,7 @@ public class CameraBlur : MonoBehaviour
 
     void Update()
     {
-        blurred.maxOffset.value = (int)(score.GetProgress() * 120);
+        blurred.maxOffset.value = (int)(score.GetProgress() * 64);
 
         Vector3 topLeft = cam.WorldToScreenPoint(boardTopLeft.position);
         Vector3 bottomRight = cam.WorldToScreenPoint(boardBottomRight.position);
