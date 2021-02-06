@@ -4,17 +4,15 @@ public class Score : MonoBehaviour
 {
     public const int maxLevel = 8;
 
-    public int score;
+    [SerializeField] private FontRenderer scoreRenderer;
 
-    [Range(0.0f, 16.0f)]
-    public int level;
+    private int score = 0;
+    private int level = 1;
 
     private DropletSpawner dropletSpawner;
 
     void Start()
     {
-        score = 0;
-        level = 1;
         dropletSpawner = GameObject.Find(GlobalNames.dropletSpawner).GetComponent<DropletSpawner>();
     }
 
@@ -27,6 +25,8 @@ public class Score : MonoBehaviour
     public void UpdateScoreDrop(Sprite block)
     {
         score += 2 * block.GetPhysicsShapeCount();
+
+        UpdateScoreDisplay();
     }
 
     public void UpdateScoreRowClear(int num_lines)
@@ -51,6 +51,8 @@ public class Score : MonoBehaviour
         {
             score += 2000 * (num_lines + 1);
         }
+
+        UpdateScoreDisplay();
     }
 
     public void UpdateLevel(int num_lines)
@@ -61,5 +63,10 @@ public class Score : MonoBehaviour
             level += 1;
             dropletSpawner.StartDrop();
         }
+    }
+
+    private void UpdateScoreDisplay()
+    {
+        scoreRenderer.SetText(score.ToString());
     }
 }
