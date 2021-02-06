@@ -7,11 +7,13 @@ public class Playboard : MonoBehaviour
     {
         public Transform tile;
         public ParticleSystem particleSystem;
+        public Block.Type blockType;
 
-        public SavedTile(Transform tile, ParticleSystem particleSystem)
+        public SavedTile(Transform tile, ParticleSystem particleSystem, Block.Type blockType)
         {
             this.tile = tile;
             this.particleSystem = particleSystem;
+            this.blockType = blockType;
         }
     }
 
@@ -76,7 +78,7 @@ public class Playboard : MonoBehaviour
         foreach (Transform tile in block.Tiles)
         {
             Vector2Int indices = GetIndicesOfTransform(tile);
-            grid[indices.x, indices.y] = new SavedTile(tile, block.explosionParticleSystem);
+            grid[indices.x, indices.y] = new SavedTile(tile, block.explosionParticleSystem, block.blockType);
         }
         ClearFullRows();
     }
@@ -84,15 +86,17 @@ public class Playboard : MonoBehaviour
     private void ClearFullRows()
     {
         int numRowsCleared = 0;
+        bool prevRowWasCleared = false;
 
         for (int i = h - 1; i >= 0; --i)
         {
             bool rowIsFull = true;
             for (int j = 0; j < w; ++j)
             {
-                if (grid[j, i] == null)
+                if (grid[j, i] == null || (grid[j, i].blockType == Block.Type.Xanax && !prevRowWasCleared))
                 {
                     rowIsFull = false;
+                    prevRowWasCleared = false;
                     break;
                 }
             }
@@ -140,6 +144,7 @@ public class Playboard : MonoBehaviour
                 }
 
                 ++numRowsCleared;
+                prevRowWasCleared = true;
             }
         }
 

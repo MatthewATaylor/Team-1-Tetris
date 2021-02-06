@@ -4,13 +4,15 @@ public class Spawn : MonoBehaviour
 {
     public const int queueSize = 3;
 
+    public bool ShouldGenerateXanax { get; set; } = false;
     public GameObject ActiveBlock { get; private set; }
     public GameObject ActiveBlockPrefab { get; private set; }
 
-    private Block[] blockQueue = new Block[queueSize];
-
     [SerializeField] private BlockPreview preview;
     [SerializeField] private Block[] blocks;
+    [SerializeField] private Block xanaxBlock;
+
+    private Block[] blockQueue = new Block[queueSize];
 
     void Start()
     {
@@ -52,6 +54,11 @@ public class Spawn : MonoBehaviour
 
     private Block GetRandomBlock()
     {
+        if (ShouldGenerateXanax)
+        {
+            ShouldGenerateXanax = false;
+            return xanaxBlock;
+        }
         int index = Random.Range(0, blocks.Length);
         return blocks[index];
     }

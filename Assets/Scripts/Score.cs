@@ -6,6 +6,7 @@ public class Score : MonoBehaviour
 
     [SerializeField] private FontRenderer scoreRenderer;
     [SerializeField] private FontRenderer linesRenderer;
+    [SerializeField] private Spawn spawn;
 
     private int score = 0;
     private int level = 1;
@@ -54,8 +55,9 @@ public class Score : MonoBehaviour
         const int additionalLinesPerLevel = 2;
         if (numLines >= (additionalLinesPerLevel / 2.0f) * (level * level + level))
         {
-            level += 1;
+            ++level;
             dropletSpawner.StartDrop();
+            spawn.ShouldGenerateXanax = true;
         }
 
         linesRenderer.SetText(numLines.ToString());

@@ -3,9 +3,9 @@
 public class Block : MonoBehaviour
 {
     // Set type for using proper wall kick tests
-    private enum Type
+    public enum Type
     {
-        JLSTZ, I, O
+        JLSTZ, I, O, Xanax
     }
 
     // Parent transform of four tiles
@@ -13,6 +13,7 @@ public class Block : MonoBehaviour
 
     public ParticleSystem explosionParticleSystem;
     public GameObject preview;
+    public Type blockType;
 
     // Wall kick test data from https://tetris.wiki/Super_Rotation_System
     private static readonly Vector2Int[,] wallKickTests_JLSTZ =
@@ -31,7 +32,6 @@ public class Block : MonoBehaviour
     };
 
     [SerializeField] private Transform rotationPoint;
-    [SerializeField] private Type blockType;
 
     private int rotationPosition = 0;
     private float prevTime;
@@ -111,6 +111,12 @@ public class Block : MonoBehaviour
 
     private void ControlRotation()
     {
+        // Can't rotate Xanax blocks
+        if (blockType == Type.Xanax)
+        {
+            return;
+        }
+
         int prevRotationPosition = rotationPosition;
         int rotationDirection;
 
