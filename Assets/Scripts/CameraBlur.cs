@@ -3,19 +3,19 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class CameraBlur : MonoBehaviour
 {
-    private DepthOfField depthOfField;
+    private Blurred blurred;
     private Score score;
 
     void Start()
     {
         PostProcessVolume volume = GetComponent<PostProcessVolume>();
-        volume.profile.TryGetSettings(out depthOfField);
+        volume.profile.TryGetSettings(out blurred);
 
         score = GameObject.Find(GlobalNames.score).GetComponent<Score>();
     }
 
     void Update()
     {
-        depthOfField.focalLength.value = 300.0f * score.GetProgress();
+        blurred.maxOffset.value = (int)(score.GetProgress() * 120);
     }
 }
