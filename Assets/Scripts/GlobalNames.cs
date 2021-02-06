@@ -5,5 +5,6 @@
     public const string score = "Score";
     public const string spawner = "Spawner";
     public const string dropletSpawner = "Droplet Spawner";
+    public const string mainScene = "Main Scene";
     public const int liquidLayer = 10;
 }

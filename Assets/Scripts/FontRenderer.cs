@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class FontRenderer : MonoBehaviour
 {
     private const float characterWidth = 1;
@@ -60,6 +61,7 @@ public class FontRenderer : MonoBehaviour
     {
         GameObject characterObject = new GameObject(character + " Character");
         characterObject.transform.position = position;
+        characterObject.transform.parent = transform;
         SpriteRenderer renderer = characterObject.AddComponent<SpriteRenderer>();
         try
         {
