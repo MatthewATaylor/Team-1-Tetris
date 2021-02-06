@@ -46,11 +46,6 @@ public class FontRenderer : MonoBehaviour
         
     }
 
-    private void OnDestroy()
-    {
-        RemoveActiveCharacters();
-    }
-
     public void SetText(string text)
     {
         RemoveActiveCharacters();
@@ -58,16 +53,18 @@ public class FontRenderer : MonoBehaviour
         float textWidth = text.Length * characterWidth;
         float firstCharacterX = transform.position.x - textWidth / 2.0f + characterWidth / 2.0f;
 
-        // Add left border
+        // Add borders
         if (border != null)
         {
-            Vector3 borderPosition = transform.position;
-            borderPosition.x = firstCharacterX - characterWidth / 2.0f - borderWidth / 2.0f;
-            GameObject borderObject = Instantiate(border, borderPosition, Quaternion.identity);
-            borderObject.transform.parent = transform;
-            borderObject.layer = gameObject.layer;
-            borderObject.GetComponent<Renderer>().sortingOrder = order;
-            activeCharacters.Add(borderObject);
+            // Left
+            Vector3 leftBorderPosition = transform.position;
+            leftBorderPosition.x = firstCharacterX - characterWidth / 2.0f - borderWidth / 2.0f;
+            AddBorder(leftBorderPosition);
+
+            // Right
+            Vector3 rightBorderPosition = transform.position;
+            rightBorderPosition.x += textWidth / 2.0f + borderWidth / 2.0f;
+            AddBorder(rightBorderPosition);
         }
 
         // Update with new text
@@ -75,24 +72,11 @@ public class FontRenderer : MonoBehaviour
         {
             Vector2 characterPosition = transform.position;
             characterPosition.x = firstCharacterX + i * characterWidth;
-            GameObject characterObject = CreateGameObjectForCharacter(text[i], characterPosition);
-            activeCharacters.Add(characterObject);
-        }
-
-        // Add right border
-        if (border != null)
-        {
-            Vector3 borderPosition = transform.position;
-            borderPosition.x += textWidth / 2.0f + borderWidth / 2.0f;
-            GameObject borderObject = Instantiate(border, borderPosition, Quaternion.identity);
-            borderObject.transform.parent = transform;
-            borderObject.layer = gameObject.layer;
-            borderObject.GetComponent<Renderer>().sortingOrder = order;
-            activeCharacters.Add(borderObject);
+            CreateGameObjectForCharacter(text[i], characterPosition);
         }
     }
 
-    private GameObject CreateGameObjectForCharacter(char character, Vector3 position)
+    private void CreateGameObjectForCharacter(char character, Vector3 position)
     {
         GameObject characterObject = new GameObject(character + " Character");
         characterObject.transform.position = position;
@@ -108,7 +92,16 @@ public class FontRenderer : MonoBehaviour
         {
             throw new KeyNotFoundException("Key: '" + character + "' not found in FontRenderer");
         }
-        return characterObject;
+        activeCharacters.Add(characterObject);
+    }
+
+    private void AddBorder(Vector3 position)
+    {
+        GameObject borderObject = Instantiate(border, position, Quaternion.identity);
+        borderObject.transform.parent = transform;
+        borderObject.layer = gameObject.layer;
+        borderObject.GetComponent<Renderer>().sortingOrder = order;
+        activeCharacters.Add(borderObject);
     }
 
     private void RemoveActiveCharacters()
