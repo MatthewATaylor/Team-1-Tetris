@@ -2,6 +2,8 @@
 
 public class Hold : MonoBehaviour
 {
+    private const float minHoldHeight = 6.5f;
+
     [SerializeField] private Spawn spawn;
 
     private Block heldBlockPrefab;
@@ -14,7 +16,7 @@ public class Hold : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H) && spawn.ActiveBlock.transform.position.y > minHoldHeight)
         {
             if (heldBlockPrefab == null)
             {

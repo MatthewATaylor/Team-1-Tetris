@@ -29,10 +29,7 @@ public class Spawn : MonoBehaviour
 
     public void SpawnBlock()
     {
-        // Instantiate first tetromino in queue
-        ActiveBlock = Instantiate(blockQueue[0].gameObject, transform.position, Quaternion.identity);
-        ActiveBlock.transform.SetParent(transform.parent);  // Set parent to Playboard
-        ActiveBlockPrefab = blockQueue[0].gameObject;
+        SpawnBlock(blockQueue[0]);
 
         // Shift queue forwards
         for (int i = 0; i < queueSize - 1; ++i)
