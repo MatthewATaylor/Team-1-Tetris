@@ -58,7 +58,14 @@ public class FontRenderer : MonoBehaviour
         GameObject characterObject = new GameObject(character + " Character");
         characterObject.transform.position = position;
         SpriteRenderer renderer = characterObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = characters[character];
+        try
+        {
+            renderer.sprite = characters[character];
+        }
+        catch (KeyNotFoundException)
+        {
+            throw new KeyNotFoundException("Key: '" + character + "' not found in FontRenderer");
+        }
         return characterObject;
     }
 }

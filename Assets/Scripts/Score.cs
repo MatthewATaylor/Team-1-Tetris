@@ -5,6 +5,7 @@ public class Score : MonoBehaviour
     public const int maxLevel = 8;
 
     [SerializeField] private FontRenderer scoreRenderer;
+    [SerializeField] private FontRenderer linesRenderer;
 
     private int score = 0;
     private int level = 1;
@@ -29,40 +30,42 @@ public class Score : MonoBehaviour
         UpdateScoreDisplay();
     }
 
-    public void UpdateScoreRowClear(int num_lines)
+    public void UpdateScoreRowClear(int numLines)
     {
-        if (num_lines == 1)
+        if (numLines == 1)
         {
-            score += 40 * (num_lines + 1);
+            score += 40 * (numLines + 1);
         }
-        else if (num_lines == 2)
+        else if (numLines == 2)
         {
-            score += 100 * (num_lines + 1);
+            score += 100 * (numLines + 1);
         }
-        else if (num_lines == 3)
+        else if (numLines == 3)
         {
-            score += 300 * (num_lines + 1);
+            score += 300 * (numLines + 1);
         }
-        else if (num_lines == 4)
+        else if (numLines == 4)
         {
-            score += 1200 * (num_lines + 1);
+            score += 1200 * (numLines + 1);
         }
         else
         {
-            score += 2000 * (num_lines + 1);
+            score += 2000 * (numLines + 1);
         }
 
         UpdateScoreDisplay();
     }
 
-    public void UpdateLevel(int num_lines)
+    public void UpdateLevel(int numLines)
     {
         const int additionalLinesPerLevel = 2;
-        if (num_lines >= (additionalLinesPerLevel / 2.0f) * (level * level + level))
+        if (numLines >= (additionalLinesPerLevel / 2.0f) * (level * level + level))
         {
             level += 1;
             dropletSpawner.StartDrop();
         }
+
+        linesRenderer.SetText(numLines.ToString());
     }
 
     private void UpdateScoreDisplay()
