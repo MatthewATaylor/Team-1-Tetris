@@ -33,7 +33,7 @@ MonoBehaviour:
     value: 1
   numPixels:
     overrideState: 1
-    value: 73
+    value: 162
 --- !u!114 &8164401411749581605
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -58,7 +58,7 @@ MonoBehaviour:
     value: 8
   focalLength:
     overrideState: 1
-    value: 111
+    value: 120
   kernelSize:
     overrideState: 1
     value: 3
