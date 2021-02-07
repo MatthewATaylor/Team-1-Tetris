@@ -20,6 +20,8 @@ public class Playboard : MonoBehaviour
     public const int w = 10;
     public const int h = 18;
 
+    [SerializeField] private AudioSource glassBreakSource;
+
     private SavedTile[,] grid = new SavedTile[w, h];
 
     private Score score;
@@ -153,6 +155,7 @@ public class Playboard : MonoBehaviour
             totalRowsCleared += numRowsCleared;
             score.UpdateScoreRowClear(numRowsCleared);
             score.UpdateLevel(totalRowsCleared);
+            glassBreakSource.Play();
         }
     }
 

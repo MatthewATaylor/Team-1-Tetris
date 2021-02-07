@@ -5,6 +5,7 @@ public class MainSceneController : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMessage;
     [SerializeField] private GameObject gameOverMessage;
+    [SerializeField] private AudioSource plinkSource;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class MainSceneController : MonoBehaviour
         if (!GlobalState.IsGameOver && Input.GetKeyDown(KeyCode.Escape))
         {
             GlobalState.IsPaused = !GlobalState.IsPaused;
+            plinkSource.Play();
         }
 
         if (GlobalState.IsPaused || GlobalState.IsGameOver)
@@ -28,12 +30,14 @@ public class MainSceneController : MonoBehaviour
                 GlobalState.IsPaused = false;
                 GlobalState.IsGameOver = false;
                 SceneManager.LoadScene(GlobalNames.mainScene);
+                plinkSource.Play();
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 GlobalState.IsPaused = false;
                 GlobalState.IsGameOver = false;
                 SceneManager.LoadScene(GlobalNames.titleScene);
+                plinkSource.Play();
             }
         }
 

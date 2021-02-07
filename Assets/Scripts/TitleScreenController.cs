@@ -5,6 +5,7 @@ public class TitleScreenController : MonoBehaviour
 {
     [SerializeField] private GameObject startMask;
     [SerializeField] private GameObject creditsMask;
+    [SerializeField] private AudioSource plinkSource;
 
     void Start()
     {
@@ -18,6 +19,8 @@ public class TitleScreenController : MonoBehaviour
         {
             startMask.SetActive(!startMask.activeInHierarchy);
             creditsMask.SetActive(!creditsMask.activeInHierarchy);
+
+            plinkSource.Play();
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -26,6 +29,8 @@ public class TitleScreenController : MonoBehaviour
             {
                 SceneManager.LoadScene(GlobalNames.mainScene);
             }
+
+            plinkSource.Play();
         }
     }
 }

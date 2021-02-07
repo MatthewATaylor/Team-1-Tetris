@@ -7,6 +7,7 @@ public class Score : MonoBehaviour
     [SerializeField] private FontRenderer scoreRenderer;
     [SerializeField] private FontRenderer linesRenderer;
     [SerializeField] private Spawn spawn;
+    [SerializeField] private AudioSource levelUpSource;
 
     private int score = 0;
     private DropletSpawner dropletSpawner;
@@ -50,6 +51,7 @@ public class Score : MonoBehaviour
             ++Level;
             dropletSpawner.StartDrop();
             spawn.ShouldGenerateXanax = true;
+            levelUpSource.Play();
         }
 
         linesRenderer.SetText(numLines.ToString());
