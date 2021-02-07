@@ -42,12 +42,6 @@ public class DropletSpawner : MonoBehaviour
 
     void Update()
     {
-        // For debugging
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartDrop();
-        }
-
         if (isDropping)
         {
             int numParticlesToDrop = Mathf.RoundToInt((Time.time - lastDropTime) * particlesPerSecond);
