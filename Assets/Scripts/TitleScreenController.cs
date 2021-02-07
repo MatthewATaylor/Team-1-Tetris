@@ -6,6 +6,7 @@ public class TitleScreenController : MonoBehaviour
     [SerializeField] private GameObject startMask;
     [SerializeField] private GameObject creditsMask;
     [SerializeField] private AudioSource plinkSource;
+    [SerializeField] private GameObject controlsMessage;
 
     void Start()
     {
@@ -32,5 +33,8 @@ public class TitleScreenController : MonoBehaviour
 
             plinkSource.Play();
         }
+
+        // Display controls when controls text is selected
+        controlsMessage.SetActive(!creditsMask.activeInHierarchy);
     }
 }
